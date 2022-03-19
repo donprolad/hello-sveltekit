@@ -1,62 +1,33 @@
-<!-- <script >
-	//import { browser } from '$app/env';
-	import { defaultEvmStores, chainData, chainId } from 'svelte-web3';
+<script>
+	import { defaultEvmStores, web3, chainData, chainId, connected, selectedAccount } from 'svelte-web3';
+  
+	import { onMount } from 'svelte'
+
+	// How can we decouple this component further?
+	// import { rpcUrl } from '../../../api/urls';
+
 	import Heading from '$lib/components/global/Heading.svelte';
-
-	import { rpcUrl } from '../../../api/urls';
-
-	import { onMount, onDestroy } from 'svelte';
-
-	export const prerender = true;
-
-	//Debug this component
-
-	// Just for reference while I get used to this library
-	// import { defaultEvmStores, web3, selectedAccount, connected, chainId, chainData } from 'svelte-web3';
+  
+  
+	onMount(async () => {
+	  await defaultEvmStores.setProvider()
+		text($connected)
+	  	color($connected)
+	})
 	
-	let statusMessage = "Loading..."
-	let statusColor;
+	const text = c =>
+	  c ? `Connected to ${$chainData?.name}` : "Disconnected"
+	
+	const color = f => 
+		f ? "chartreuse" : "red"
+	
+  </script>
 
-	const gatewayStatus = name =>
-		name === undefined || name === {} ? 
-		false : true
-
-
-	const status = n => n !== undefined ? `Connected to ${n}` : "Disconnected"
-
-	// let networkName = JSON.stringify($chainData?.name);
-
-	// const displayText = f => f ? `Connected To: ${JSON.stringify($chainData?.name)}` : "Disconnected"
-	const displayStatusColor = f => f ? "chartreuse" : "red"
-
-
-	onMount (() => {
-		//if(browser) {
-			defaultEvmStores.setProvider()
-		//}
-
-		// statusMessage = await displayText(gatewayStatus(JSON.stringify($chainData?.name)))
-		// statusColor = await displayStatusColor(gatewayStatus(JSON.stringify($chainData?.name)))
-		statusMessage = status(JSON.stringify($chainData?.name))
-	})
-
-	onDestroy(() => {
-		defaultEvmStores.disconnect();
-	})
-
-	$: {
-	 	// statusMessage = displayText(gatewayStatus(JSON.stringify($chainData?.name)))
-		// statusColor = displayStatusColor(gatewayStatus(JSON.stringify($chainData?.name)))
-		statusMessage = status(JSON.stringify($chainData?.name))
-	}
-</script>
-<ul style={`--status-color: ${statusColor}`}>
-	<li><Heading name={statusMessage} size={12}/></li>
-</ul> -->
-
-<!-- <Heading name={statusMessage} size={12}/> -->
-
-<!-- <style>
+<ul style={`--status-color: ${color($connected)}`}>
+	<li><Heading name={text($connected)} size={12}/></li>
+</ul>
+  
+<style>
 	ul {
 		list-style-type: none;
 		width: 15%;
@@ -96,28 +67,4 @@
 		font-size: 0.7rem;
 		white-space: no-wrap;
 	 } */
-</style> -->
-
-<script>
-	import { defaultEvmStores, web3, chainData, chainId, connected, selectedAccount } from 'svelte-web3';
-  
-	import { onMount } from 'svelte'
-
-	import { rpcUrl } from '../../../api/urls';
-  
-	let statusMessage = "Loading..."
-  
-	onMount(async () => {
-	  await defaultEvmStores.setProvider()
-	  statusMessage = await displayStatus($chainData?.name)
-	})
-	
-	const displayStatus = n =>
-	  n !== undefined ? `Connected to ${n}` : "Disconnected"
-	
-  
-	$: statusMessage = displayStatus($chainData?.name)
-	
-  </script>
-  
-  <p>{statusMessage}</p>
+</style>
