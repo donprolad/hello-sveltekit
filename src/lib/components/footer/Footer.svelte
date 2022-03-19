@@ -1,13 +1,9 @@
 <script>
 
 import Heading from '../global/Heading.svelte';
+import SocialMedia from '../social-media/SocialMedia.svelte';
 
-// svg images
-import FaceBookSVG from '../../../res/svg/facebook.svg'
-import InstagramSVG from '../../../res/svg/instagram.svg'
-import LinkedInSVG from '../../../res/svg/linkedin.svg'
-import TwitterSVG from '../../../res/svg/twitter.svg'
-
+    // This is not just headings it will contain content hyperlinks
     let headings = [
         { name: "Resources"},
         { name: "Partners"}, 
@@ -18,8 +14,8 @@ import TwitterSVG from '../../../res/svg/twitter.svg'
     ]
 
     const date = new Date();
-</script>
 
+</script>
 
 <footer>
     <div class="footer-container">
@@ -31,33 +27,15 @@ import TwitterSVG from '../../../res/svg/twitter.svg'
                 {/each}
         </article>
         <hr>
-        <div class="social-media"> <!-- refactor into social media component -->
-            <div class="svg-container">
-                <a href="https://www.facebook.com" target="_new" alt="facebook link">
-                    <img id="svg" src={FaceBookSVG} alt="facebook"/>
-                </a>
-            </div>
-            <div class="svg-container">
-                <a href="https://www.instagram.com" target="_new" alt="instagram link">
-                    <img id="svg" src={InstagramSVG} alt="instagram"/>
-                </a>
-            </div>
-            <div class="svg-container">
-                <a href="https://www.linkedin.com" target="_new" alt="linkedin link">
-                    <img id="svg" src={LinkedInSVG} alt="linkedin"/>
-                </a>
-            </div>
-            <div class="svg-container">
-                <a href="https://twitter.com" target="_new " alt="twitter link">
-                    <img id="svg" src={TwitterSVG} alt="twitter"/>
-                </a>
-            </div>
+        <div class="social-media">
+            <SocialMedia />
         </div>
+        
         <div class="privacy-terms">
             <a href="/privacy" alt="privacy policy">
                 <Heading name={"Privacy Policy"} size={12}/>
             </a>
-            <a href="/t's-and-c's" alt="terms and conditions">
+            <a href="/tc" alt="terms and conditions">
                 <Heading name={"Terms & Conditions"} size={12}/>
             </a>
         </div>

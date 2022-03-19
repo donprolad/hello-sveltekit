@@ -10,7 +10,6 @@
 </script>
 
 <select name="Language" class="language-selector">
-    <option value="English">LANG</option>
     <option value="English">&#127468&#127463; EN</option>
     <option value="French">&#127467&#127479; FRA</option>
     <option value="Spanish">&#127466&#127480; ESP</option>
