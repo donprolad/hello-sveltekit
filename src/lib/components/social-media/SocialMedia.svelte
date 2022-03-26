@@ -1,49 +1,20 @@
 <script>
     import SocialMediaHyperLink from './SocialMediaHyperLink.svelte';
     import { socialMediaSchema } from './schema.js';
-</script>
-<!-- <div class={gridClass}> refactor into social media component -->
+
+    export let gridArea;
     
-    <!-- <div class="svg-container">
-        <a href="https://www.facebook.com" target="_new" alt="facebook link">
-            <img id="svg" src={FaceBookSVG} alt="facebook"/>
-        </a>
+</script>
+<div class="social-media" style="--grid-area: {gridArea}">
+        {#each socialMediaSchema as link}
+            <SocialMediaHyperLink {...link}/>
+        {/each}
     </div>
-    <div class="svg-container">
-        <a href="https://www.instagram.com" target="_new" alt="instagram link">
-            <img id="svg" src={InstagramSVG} alt="instagram"/>
-        </a>
-    </div>
-    <div class="svg-container">
-        <a href="https://www.linkedin.com" target="_new" alt="linkedin link">
-            <img id="svg" src={LinkedInSVG} alt="linkedin"/>
-        </a>
-    </div>
-    <div class="svg-container">
-        <a href="https://twitter.com" target="_new " alt="twitter link">
-            <img id="svg" src={TwitterSVG} alt="twitter"/>
-        </a>
-    </div> -->
-    {#each socialMediaSchema as link}
-        <SocialMediaHyperLink {...link}/>
-    {/each}
-<!-- </div> -->
 <style>
-    /* .social-media {
-        grid-area: var(--gridArea);
+    .social-media {
+        grid-area: var(--grid-area);
         display: grid;
         width: 10rem;
         grid-template-columns: repeat(4, 1fr);
-    } */
-
-    /* .svg-container {
-        align-content: center;
-        align-self: center;
     }
-
-    #svg {
-        width: 1rem;
-        height: 1rem;
-    } */
-
 </style>

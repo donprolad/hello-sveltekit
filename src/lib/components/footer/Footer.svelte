@@ -3,7 +3,7 @@
 import Heading from '../global/Heading.svelte';
 import SocialMedia from '../social-media/SocialMedia.svelte';
 
-    // This is not just headings it will contain content hyperlinks
+    // This is not just headings it will contain content hyperlinks, move to schema
     let headings = [
         { name: "Resources"},
         { name: "Partners"}, 
@@ -27,10 +27,7 @@ import SocialMedia from '../social-media/SocialMedia.svelte';
                 {/each}
         </article>
         <hr>
-        <div class="social-media">
-            <SocialMedia />
-        </div>
-        
+            <SocialMedia gridArea="social-media"/>
         <div class="privacy-terms">
             <a href="/privacy" alt="privacy policy">
                 <Heading name={"Privacy Policy"} size={12}/>
@@ -79,12 +76,12 @@ import SocialMedia from '../social-media/SocialMedia.svelte';
         justify-content: center;
     }
 
-    .social-media {
+    /* .social-media {
         grid-area: social-media;
         display: grid;
         width: 10rem;
         grid-template-columns: repeat(4, 1fr);
-    }
+    } */
 
     .privacy-terms {
         grid-area: privacy;
