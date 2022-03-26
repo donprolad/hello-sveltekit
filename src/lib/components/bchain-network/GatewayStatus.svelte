@@ -4,6 +4,8 @@
 	import { onMount } from 'svelte'
 
 	// How can we decouple this component further?
+	
+	// Pass the below to defaultEvmStore.setProvider ,along with the modal window
 	// import { rpcUrl } from '../../../api/urls';
 
 	import Heading from '$lib/components/global/Heading.svelte';
