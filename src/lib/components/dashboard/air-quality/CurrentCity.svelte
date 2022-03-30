@@ -5,8 +5,7 @@ import Heading from '../../global/Heading.svelte'
 
     let country = {}
 
-    onMount(async() => {
-        
+    onMount(async() => { 
         await navigator.geolocation.getCurrentPosition(res =>
             fetch(locationUrl(res), 
             {
