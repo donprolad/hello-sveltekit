@@ -1,15 +1,12 @@
 <script>
     import { onMount } from 'svelte'
     import { apiUrl, statesInCountry } from '../../api/urls'
-    import { getCountries } from '../../api/iqAir'
-    // import { countriesState } from '../../stores/writable/countries'
 
     import CurrentCity from '../../lib/components/dashboard/air-quality/CurrentCity.svelte'
     
     let countries = []
     let countriesState = []
     let countryName;
-    let url;
     
     onMount(async () => {
 
@@ -18,8 +15,7 @@
             method: 'GET',
             redirect: 'follow',
             headers: {
-                'Content-Type' : 'application/json',
-                'Access-Control-Allow-Origin' : '*'
+                'Content-Type' : 'application/json'
             }
         })
             .then(res => res.json())
@@ -38,11 +34,7 @@
 </script>
 <CurrentCity />
 <div>
-    {#if url === undefined}
-        <p>Please Choose a Country</p>
-    {:else}
-        <p>No Country Data</p>
-    {/if}
+    <p>Please Choose a Country</p>    
 <!-- Refactor in country selector component -->
     {#if countries !== []} 
         <select name="Country" class="country-selector" 
@@ -52,13 +44,18 @@
                 <option value={name.country}> {name.country}</option>
             {/each}
         </select>
-        {#if countriesState !== []}
-            {#each countriesState as data}
-                <p>{data.state}</p>
-            {/each}
+        {#if countriesState.length > 0 ? true : false}
+            <details>
+                <summary>State ({countriesState.length})</summary>
+                {#if countriesState !== []}
+                    {#each countriesState as data}
+                        <p>{data.state}</p>
+                    {/each}
+                {/if}
+            </details>
         {/if}
     {:else}
-        <p>No Data</p>
+        <p>No Country Data</p>
     {/if}
 </div>
 
