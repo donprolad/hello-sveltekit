@@ -35,7 +35,7 @@
 <CurrentCity />
 <div>
     <p>Please Choose a Country</p>    
-<!-- Refactor in country selector component -->
+<!-- Refactor in country selector component and memoize -->
     {#if countries !== []} 
         <select name="Country" class="country-selector" 
             bind:value={countryName}

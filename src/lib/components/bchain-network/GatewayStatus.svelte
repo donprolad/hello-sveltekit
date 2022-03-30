@@ -6,13 +6,13 @@
 	// How can we decouple this component further?
 	
 	// Pass the below url to defaultEvmStore.setProvider ,along with the modal window
-	// import { rpcUrl } from '../../../api/urls';
+	import { rpcUrl } from '../../../api/urls';
 
 	import Heading from '$lib/components/global/Heading.svelte';
   
   
 	onMount(async () => {
-	  await defaultEvmStores.setProvider()
+	  await defaultEvmStores.setProvider(rpcUrl)
 		text($connected)
 	  	color($connected)
 	})
