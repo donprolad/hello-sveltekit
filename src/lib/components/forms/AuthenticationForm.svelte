@@ -46,16 +46,6 @@
         margin: 0px;
     }
 
-    form hr {
-        align-self: center;
-
-    }
-
-    .form-links-container {
-        align-content: center;
-        padding-left: 10px;
-    }
-
     .clear-fix {
         display: grid;
         grid-template-columns: 1fr;

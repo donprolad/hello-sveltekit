@@ -76,13 +76,6 @@ import SocialMedia from '../social-media/SocialMedia.svelte';
         justify-content: center;
     }
 
-    /* .social-media {
-        grid-area: social-media;
-        display: grid;
-        width: 10rem;
-        grid-template-columns: repeat(4, 1fr);
-    } */
-
     .privacy-terms {
         grid-area: privacy;
         display: grid;
@@ -103,15 +96,5 @@ import SocialMedia from '../social-media/SocialMedia.svelte';
         grid-template-columns: 1fr;
         font-size: 12px;
         justify-items: center;
-    }
-
-    .svg-container {
-        align-content: center;
-        align-self: center;
-    }
-
-    #svg {
-        width: 1rem;
-        height: 1rem;
     }
 </style>

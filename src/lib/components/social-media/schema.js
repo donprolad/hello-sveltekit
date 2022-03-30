@@ -17,12 +17,12 @@ export const socialMediaSchema = [
     },
     {
         "href": "https://www.linkedin.com",
-        "alt": "linkedin",
+        "alt": "linkedin link",
         "src": LinkedInSVG
     },
     {
         "href": "https://www.twitter.com",
-        "alt": "twitter",
+        "alt": "twitter link",
         "src": TwitterSVG
     }
 ]

@@ -20,8 +20,3 @@ import "../app.css"
 <GatewayStatus />
 <slot/>
 <Footer />
-<style>
-    body {
-        background-color: #E6E6EE;
-    }
-</style>

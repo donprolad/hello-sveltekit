@@ -18,8 +18,7 @@
     ]
 
     function login (e) {
-        e.preventDefault();
-        $: console.log($loginState)
+        e.preventDefault()
     }
 
     // const displayUserEmail = x => x !== "" ? `, ${x}` : ""
