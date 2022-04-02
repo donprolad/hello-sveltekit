@@ -29,6 +29,7 @@
   },
   "type": "module",
   "dependencies": {
+    "jest": "^27.5.1",
     "svelte-web3": "^3.3.7"
   }
 }

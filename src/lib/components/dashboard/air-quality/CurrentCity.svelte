@@ -20,31 +20,27 @@ import Heading from '../../global/Heading.svelte'
             .catch(err => console.log(err))
         )
     })
+
+    const calculateAirPollutionLevel = v => {
+        v < 40 ? "Moderate/Low" : 
+        v > 40 && v < 75 ? "Moderate" : 
+        v > 75 ? "Unsafe" : 
+        "Unable to Quantify"
+    }
+
+    // let airPollutionLevel = country.current
+    // $: airPollutionLevel = country.current
 </script>
 
 <div>
 {#if country.city === undefined}
     <Heading name={"Loading"} size={14}/>
 {:else}
-    Current City: <Heading name={country.city} size={14}/>
+    <div><Heading name={`Current Country: `} size={14}/>{country.country}</div>
+    <div><Heading name={`Current City: `} size={14}/>{country.city}</div>
+    <div><Heading name={`Current Province/State: `} size={14}/>{country.state}</div>
+    <!-- <div><Heading name={`Air Quality`} size={14}/>{country.current.pollution.aquis}
+        {calculateAirPollutionLevel(airPollutionLevel)}
+    </div> -->
 {/if}
-<!-- {#if citie !== undefined}
-        <table>
-            <tr>
-                <th>Country</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Ranking</th>
-            </tr>
-                {#each cities.data as rank}
-            <tr>
-               
-                <td>{rank.country}</td>
-                <td>{rank.city}</td>
-                <td>{rank.state}</td>
-                <td>{rank.ranking.current_aqi}</td>
-            </tr>
-                {/each}
-        </table>
-    {/if} -->
 </div>

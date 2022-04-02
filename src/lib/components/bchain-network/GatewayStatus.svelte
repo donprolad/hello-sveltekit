@@ -5,7 +5,7 @@
 
 	// How can we decouple this component further?
 	
-	// Pass the below url to defaultEvmStore.setProvider ,along with the modal window
+	// Pass modal window
 	import { rpcUrl } from '../../../api/urls';
 
 	import Heading from '$lib/components/global/Heading.svelte';
