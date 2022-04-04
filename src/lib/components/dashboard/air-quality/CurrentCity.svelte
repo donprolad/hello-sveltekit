@@ -22,25 +22,78 @@ import Heading from '../../global/Heading.svelte'
     })
 
     const calculateAirPollutionLevel = v => {
-        v < 40 ? "Moderate/Low" : 
-        v > 40 && v < 75 ? "Moderate" : 
-        v > 75 ? "Unsafe" : 
-        "Unable to Quantify"
+        v < 50 ? "Livable" :
+        v > 50 && v < 99 ? "Moderate" : 
+        v > 100 ? "Unsafe" : "Unable to Quantify"
     }
 
-    // let airPollutionLevel = country.current
-    // $: airPollutionLevel = country.current
 </script>
 
 <div>
+<!-- Refactor this component -->
 {#if country.city === undefined}
     <Heading name={"Loading"} size={14}/>
 {:else}
-    <div><Heading name={`Current Country: `} size={14}/>{country.country}</div>
-    <div><Heading name={`Current City: `} size={14}/>{country.city}</div>
-    <div><Heading name={`Current Province/State: `} size={14}/>{country.state}</div>
-    <!-- <div><Heading name={`Air Quality`} size={14}/>{country.current.pollution.aquis}
-        {calculateAirPollutionLevel(airPollutionLevel)}
-    </div> -->
+    <div class="current-city-grid">
+        <div class="current-country">{country.country}</div>
+        <div class="current-province">{country.state}</div>
+        <div class="current-city">{country.city}</div>
+        <div class="current-quality-index">
+            <div class="section-label">Air Pollution Level</div>
+            {country.current.pollution.aqius}*
+        </div>
+    </div>
 {/if}
 </div>
+<style>
+    .current-city-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas:
+            "city . . aqius ."
+            ". . . . ."
+            "country province . . ."
+            ". . . . .";
+        border-radius: 2%;
+        box-shadow: 0px 2px 3px 0px #6666cb;
+        width: 50%;
+        height: 110px;
+    }
+
+    .current-country {
+        grid-area: country;
+        padding: 0px 0px 10px 10px;
+        font-size: 0.7rem;
+        font-weight: lighter;
+    }
+
+    .current-province {
+        grid-area: province;
+        padding: 0px 0px 10px 10px;
+        font-size: 0.7rem;
+        font-weight: lighter;
+    }
+
+    .current-city {
+        grid-area: city;
+        font-weight: bold;
+        padding: 10px 0px 0px 10px;
+    }
+
+    .section-label {
+        font-size: 0.7rem;
+        font-weight: lighter;
+        text-transform: uppercase;
+    }
+
+    .current-quality-index {
+        grid-area: aqius;
+        display: inline-block;
+        font-size: 3rem;
+        text-align: center;
+        align-content: center;
+        border: 1px solid black;
+    }
+
+</style>

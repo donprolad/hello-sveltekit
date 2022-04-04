@@ -1,9 +1,7 @@
 <script>
     import { onMount, createEventDispatcher } from 'svelte'
-    import { apiUrl, statesInCountry } from '../../api/urls'
+    import { apiUrl, statesInCountry } from '../../../api/urls'
 
-    import CurrentCity from '../../lib/components/dashboard/air-quality/CurrentCity.svelte'
-    import CountrySelector from '../../lib/components/country-selector/CountrySelector.svelte'
 
     const dispatch = createEventDispatcher()
 
@@ -14,9 +12,11 @@
     // How can we improve the purity of this function?, to make it more reliable?
     // have the cache preferrably in a closure, remember it will have it's own store.
 
+    // What our state looks like so far, should probably move to a store.
     let cache = {}
     let countries = []
     let countryName = ""
+    let err = ""
     
     onMount(async () => {
 
@@ -49,24 +49,46 @@
                 method: 'GET',
                 redirect: 'follow',
                 headers: {
-                    'Content-Type' : 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Content-Type' : 'application/json'
                 }
             })
             .then(res => res.json())
             .then(result => 
                 cache[name] = { provinces: [...result.data] })
-            .catch(err => console.log(err))
+            .catch(err => { 
+                cache[err] = { ...cache[err], err}
+                err = ""
+            })
     })
+
+
 </script>
-<svelte:head>
-    <title>DashBoard</title>
-    <meta name="description" content="Page: DashBoard, Author: Don Prolad,
-    Category: Web Pages" />
-    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' http://localhost:3000/login; img-src 'self'" /> -->
-</svelte:head>
-<CurrentCity />
-<CountrySelector />
+<div>
+    <!-- Refactor this component -->
+    <p>Please Choose a Country</p>
+    {#if countries !== []} 
+        <select name="Country" class="country-selector" 
+            bind:value={countryName}
+            on:change={getCountryState}>
+            {#each countries as name}
+                <option value={name.country}> {name.country}</option>
+            {/each}
+        </select>
+        {#if cache[countryName] !== undefined}
+            <select name="State" class="state-selector">
+                {#each cache[countryName].provinces as data}
+                    <option>{data.state}</option>
+                {/each}
+            </select>State ({cache[countryName].provinces.length})
+        {:else if cache[err] !== undefined}
+            <p>Error Loading Data :(</p>
+        {:else}
+            <p>...</p>
+        {/if}
+    {:else}
+        <p>No Country Data</p>
+    {/if}
+</div>
 
 <style>
     
