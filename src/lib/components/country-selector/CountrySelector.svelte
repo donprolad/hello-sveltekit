@@ -12,6 +12,7 @@
     // How can we improve the purity of this function?, to make it more reliable?
     // have the cache preferrably in a closure, remember it will have it's own store.
 
+    // What our state looks like so far, should probably move to a store.
     let cache = {}
     let countries = []
     let countryName = ""

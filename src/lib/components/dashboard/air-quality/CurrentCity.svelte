@@ -30,6 +30,7 @@ import Heading from '../../global/Heading.svelte'
 </script>
 
 <div>
+<!-- Refactor this component -->
 {#if country.city === undefined}
     <Heading name={"Loading"} size={14}/>
 {:else}
@@ -37,7 +38,10 @@ import Heading from '../../global/Heading.svelte'
         <div class="current-country">{country.country}</div>
         <div class="current-province">{country.state}</div>
         <div class="current-city">{country.city}</div>
-        <div class="current-quality-index">{country.current.pollution.aqius}</div>
+        <div class="current-quality-index">
+            <div class="section-label">Air Pollution Level</div>
+            {country.current.pollution.aqius}*
+        </div>
     </div>
 {/if}
 </div>
@@ -77,10 +81,19 @@ import Heading from '../../global/Heading.svelte'
         padding: 10px 0px 0px 10px;
     }
 
+    .section-label {
+        font-size: 0.7rem;
+        font-weight: lighter;
+        text-transform: uppercase;
+    }
+
     .current-quality-index {
         grid-area: aqius;
+        display: inline-block;
         font-size: 3rem;
         text-align: center;
+        align-content: center;
+        border: 1px solid black;
     }
 
 </style>
