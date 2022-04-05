@@ -10,9 +10,13 @@
     // in exchange for
     // a bit of space, only does network request for new data now after load
     // How can we improve the purity of this function?, to make it more reliable?
-    // have the cache preferrably in a closure, remember it will have it's own store.
+    // have the cache preferrably in a closure, remember it will have it's own store, 
+    // that other components and functions subscribe to
 
-    // What our state looks like so far, should probably move to a store.
+    // 2. What our state looks like so far, should probably move to a store.
+
+    // 3. state should also be hierarchical and moved to the parent component dashboard, 
+    // the component should be more generic and reusable
     let cache = {}
     let countries = []
     let countryName = ""
@@ -56,7 +60,7 @@
             .then(result => 
                 cache[name] = { provinces: [...result.data] })
             .catch(err => { 
-                cache[err] = { ...cache[err], err}
+                cache[err] = { ...cache[err], err }
                 err = ""
             })
     })
