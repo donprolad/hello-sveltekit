@@ -1,63 +1,8 @@
 <script>
-    import { onMount, createEventDispatcher } from 'svelte'
-    import { apiUrl, statesInCountry } from '../../api/urls'
 
     import CurrentCity from '../../lib/components/dashboard/air-quality/CurrentCity.svelte'
     import CountrySelector from '../../lib/components/country-selector/CountrySelector.svelte'
 
-    const dispatch = createEventDispatcher()
-
-    // TODO List for this component
-    // 1. Memoize - DONE, significantly improved data load time for repeat requests
-    // in exchange for
-    // a bit of space, only does network request for new data now after load
-    // How can we improve the purity of this function?, to make it more reliable?
-    // have the cache preferrably in a closure, remember it will have it's own store.
-
-    let cache = {}
-    let countries = []
-    let countryName = ""
-    
-    onMount(async () => {
-
-        await fetch(apiUrl.countries,  
-        {
-            method: 'GET',
-            redirect: 'follow',
-            headers: {
-                'Content-Type' : 'application/json'
-            }
-        })
-            .then(res => res.json())
-            .then(result => countries = result.data)
-            .catch(err => console.log(err))
-        
-    })
-
-    const getCountryState = async () =>
-        await memoize(countryName)
-
-    const memoize = (
-        async (name) => {
-        
-        if(name in cache) {
-            return cache[name]
-        }
-
-        await fetch(statesInCountry(name),
-            {
-                method: 'GET',
-                redirect: 'follow',
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Access-Control-Allow-Origin': '*'
-                }
-            })
-            .then(res => res.json())
-            .then(result => 
-                cache[name] = { provinces: [...result.data] })
-            .catch(err => console.log(err))
-    })
 </script>
 <svelte:head>
     <title>DashBoard</title>
@@ -68,6 +13,3 @@
 <CurrentCity />
 <CountrySelector />
 
-<style>
-    
-</style>
