@@ -6,11 +6,12 @@ export const iqAirApiKey = import.meta.env.VITE_IQAIR_APIKEY
 export const apiUrl = {
     countries: `${iqAirApi}countries?key=${iqAirApiKey}`,
     ranking: `${iqAirApi}city_ranking?key=${iqAirApiKey}`,
+    location: `${iqAirApi}nearest_city?key=${iqAirApiKey}`
 }
 
 export const statesInCountry = countryName =>
     `${iqAirApi}states?country=${countryName}&key=${iqAirApiKey}`
 
-export const locationUrl = res =>
+export const locationUrlByGPS = res =>
 `${iqAirApi}nearest_city?lat=${res.coords.latitude}&lon=${res.coords.longitude}&key=${iqAirApiKey}`
 

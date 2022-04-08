@@ -1,25 +1,17 @@
 <script>
 import { onMount } from 'svelte';
-import { locationUrl } from '../../../../api/urls'
+import { apiUrl } from '../../../../api/urls'
 import Heading from '../../global/Heading.svelte'
 
     let country = {}
 
-    onMount(async e => {
-        e.preventDefault()
-        await navigator.geolocation.getCurrentPosition(res =>
-            fetch(locationUrl(res), 
-            {
-                method: 'GET',
-                redirect: 'follow',
-                headers: {
-                    'Content-Type' : 'application/json',
-                }
-            })  
-            .then(res => res.json())
-            .then(res => country = res.data)
-            .catch(err => console.log(err))
-        )
+    onMount(async () => {
+        await fetch(apiUrl.location, {
+            'method': 'GET',
+            'redirect': 'follow'
+        }).then(res => res.json())
+        .then(res => country = res.data)
+        .catch(err => console.log(err))
     })
 
     const calculateAirPollutionLevel = v => {

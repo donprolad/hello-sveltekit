@@ -1,6 +1,9 @@
 <script>
     import { onMount, createEventDispatcher } from 'svelte'
     import { apiUrl, statesInCountry } from '../../../api/urls'
+    import { getCountries } from '../../../api/iqAir'
+
+    import { countriesState } from '../../../stores/writable/countries'
 
 
     const dispatch = createEventDispatcher()
@@ -17,24 +20,28 @@
 
     // 3. state should also be hierarchical and moved to the parent component dashboard, 
     // the component should be more generic and reusable
+
     let cache = {}
     let countries = []
     let countryName = ""
+    let stateName = ""
     let err = ""
     
     onMount(async () => {
 
-        await fetch(apiUrl.countries,  
+        await fetch(apiUrl.countries, 
         {
             method: 'GET',
             redirect: 'follow',
-            headers: {
-                'Content-Type' : 'application/json'
-            }
+            // headers: {
+            //     'Content-Type' : 'application/json',
+            //     'Access-Control-Allow-Origin' : '*'
+            // }
         })
             .then(res => res.json())
             .then(result => countries = result.data)
             .catch(err => console.log(err))
+        // await getCountries(countries)
         
     })
 
@@ -52,9 +59,10 @@
             {
                 method: 'GET',
                 redirect: 'follow',
-                headers: {
-                    'Content-Type' : 'application/json'
-                }
+                // headers: {
+                //     'Content-Type' : 'application/json',
+                //     'Access-Control-Allow-Origin' : '*'
+                // }
             })
             .then(res => res.json())
             .then(result => 
@@ -65,7 +73,7 @@
             })
     })
 
-
+    $: console.log(countryName, stateName)
 </script>
 <div>
     <!-- Refactor this component -->
@@ -79,7 +87,8 @@
             {/each}
         </select>
         {#if cache[countryName] !== undefined}
-            <select name="State" class="state-selector">
+            <select name="State" class="state-selector" 
+                bind:value={stateName}>
                 {#each cache[countryName].provinces as data}
                     <option>{data.state}</option>
                 {/each}
