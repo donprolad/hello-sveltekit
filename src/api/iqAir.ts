@@ -1,11 +1,12 @@
-import { apiUrl, locationUrl } from './urls';
+import { apiUrl, locationUrlByGPS } from './urls';
 
 // Debug, and refactor :(
 export const getCountries = async (countriesState) => {
     await fetch(apiUrl.countries, 
         {
             method: 'GET',
-            redirect: 'follow'
+            redirect: 'follow',
+
         })
             .then(res => res.json())
             .then(results => countriesState = results.data)
@@ -16,7 +17,7 @@ export const currentLocation = ($storeVal) => {
     // don't like calling global scope directly
     //let __navigator = navigator
     navigator.geolocation.getCurrentPosition(async res =>
-        await fetch(locationUrl(res), 
+        await fetch(locationUrlByGPS(res), 
         {
             method: 'GET',
             redirect: 'follow',

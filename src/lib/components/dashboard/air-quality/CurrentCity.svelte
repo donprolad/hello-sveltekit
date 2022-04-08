@@ -1,24 +1,17 @@
 <script>
 import { onMount } from 'svelte';
-import { locationUrl } from '../../../../api/urls'
+import { apiUrl } from '../../../../api/urls'
 import Heading from '../../global/Heading.svelte'
 
     let country = {}
 
-    onMount(async() => { 
-        await navigator.geolocation.getCurrentPosition(res =>
-            fetch(locationUrl(res), 
-            {
-                method: 'GET',
-                redirect: 'follow',
-                headers: {
-                    'Content-Type' : 'application/json',
-                }
-            })  
-            .then(res => res.json())
-            .then(res => country = res.data)
-            .catch(err => console.log(err))
-        )
+    onMount(async () => {
+        await fetch(apiUrl.location, {
+            'method': 'GET',
+            'redirect': 'follow'
+        }).then(res => res.json())
+        .then(res => country = res.data)
+        .catch(err => console.log(err))
     })
 
     const calculateAirPollutionLevel = v => {
@@ -30,7 +23,7 @@ import Heading from '../../global/Heading.svelte'
 </script>
 
 <div>
-<!-- Refactor this component -->
+<!-- Refactor this component , build smaller reusable components -->
 {#if country.city === undefined}
     <Heading name={"Loading"} size={14}/>
 {:else}
@@ -85,6 +78,7 @@ import Heading from '../../global/Heading.svelte'
         font-size: 0.7rem;
         font-weight: lighter;
         text-transform: uppercase;
+        padding: 10px 0px 0px 0px;
     }
 
     .current-quality-index {
@@ -93,7 +87,6 @@ import Heading from '../../global/Heading.svelte'
         font-size: 3rem;
         text-align: center;
         align-content: center;
-        border: 1px solid black;
     }
 
 </style>
