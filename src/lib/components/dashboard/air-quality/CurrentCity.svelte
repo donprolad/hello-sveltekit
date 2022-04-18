@@ -2,6 +2,7 @@
 import { onMount } from 'svelte';
 import { apiUrl } from '../../../../api/urls'
 import Heading from '../../global/Heading.svelte'
+import { calculateAirPollutionLevel } from '../../../utilities/air-quality.js'
 
     let country = {}
 
@@ -13,12 +14,6 @@ import Heading from '../../global/Heading.svelte'
         .then(res => country = res.data)
         .catch(err => console.log(err))
     })
-
-    const calculateAirPollutionLevel = v => {
-        v < 50 ? "Livable" :
-        v > 50 && v < 99 ? "Moderate" : 
-        v > 100 ? "Unsafe" : "Unable to Quantify"
-    }
 
 </script>
 
@@ -34,6 +29,7 @@ import Heading from '../../global/Heading.svelte'
         <div class="current-quality-index">
             <div class="section-label">Air Pollution Level</div>
             {country.current.pollution.aqius}*
+            <div class="section-label">{calculateAirPollutionLevel(country.current.pollution.aqius)}</div>
         </div>
     </div>
 {/if}
